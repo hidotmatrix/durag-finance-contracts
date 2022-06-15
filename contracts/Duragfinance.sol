@@ -5,13 +5,13 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-import "./Socks.sol";
+import "./Durags.sol";
 
-/** title Contract Unisocks inherits functionality of ERC721 and Ownable contracts */
-contract Unisocks is ERC721, Ownable {
+/** title Contract Durags Finance inherits functionality of ERC721 and Ownable contracts */
+contract DuragFinance is ERC721, Ownable {
     uint256 public totalSupply;
 
-    address public socksAddress;
+    address public duragsAddress;
 
     string public baseTokenURI;
 
@@ -24,24 +24,24 @@ contract Unisocks is ERC721, Ownable {
     /// event for logging change in the base token uri
     event URI(string uri);
 
-    Socks socks;
+    Durags durags;
 
-    constructor(address _socks, string memory _baseTokenURI)
-        ERC721("Unisocks", "SOCKS")
+    constructor(address _durags, string memory _baseTokenURI)
+        ERC721("Durag Finance", "DURAGS")
     {
-        socksAddress = _socks;
+        duragsAddress = _durags;
         baseTokenURI = _baseTokenURI;
     }
 
     /**
-     * @dev owner mint NFT's equivalent to the burn tokens at socks contract
+     * @dev owner mint NFT's equivalent to the burn tokens at durags contract
      * @param _to mint address
      * @param _amount amount of NFT's to be minted
      */
     function mint(address _to, uint256 _amount) external onlyOwner {
-        socks = Socks(socksAddress);
-        uint256 _socksSupply = socks.totalSupply();
-        uint256 _socksBurned = socks.supply() - _socksSupply;
+        durags = Durags(duragsAddress);
+        uint256 _socksSupply = durags.totalSupply();
+        uint256 _socksBurned = durags.supply() - _socksSupply;
         require(
             (totalSupply * 10**18) < _socksBurned,
             "mint: tokenSupply exceeds burned limit"

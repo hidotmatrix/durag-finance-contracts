@@ -5,17 +5,17 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-import "./Unisocks.sol";
+import "./Duragfinance.sol";
 
 /** title Contract Socks inherits functionality of ERC20 and Ownable contracts */
-contract Socks is ERC20, Ownable {
+contract Durags is ERC20, Ownable {
     uint256 public supply;
 
     address public nftAddress;
 
-    Unisocks unisocks;
+    DuragFinance duragFinance;
 
-    constructor(uint256 _supply) ERC20("Unisocks Edition 0", "SOCKS") {
+    constructor(uint256 _supply) ERC20("Durag Finance Edition 0", "DURAGS") {
         supply = _supply;
 
         /**
@@ -35,8 +35,8 @@ contract Socks is ERC20, Ownable {
             "burn: token must be whole number"
         );
         _burn(msg.sender, _value);
-        unisocks = Unisocks(nftAddress);
-        unisocks.mint(msg.sender, _value / (10**decimals()));
+        duragFinance = DuragFinance(nftAddress);
+        duragFinance.mint(msg.sender, _value / (10**decimals()));
         return true;
     }
 
@@ -56,24 +56,24 @@ contract Socks is ERC20, Ownable {
         );
         require(allowance(_from, msg.sender) >= _value);
         _burn(_from, _value);
-        unisocks = Unisocks(nftAddress);
-        unisocks.mint(_from, _value / (10**decimals()));
+        duragFinance = DuragFinance(nftAddress);
+        duragFinance.mint(_from, _value / (10**decimals()));
         return true;
     }
 
     /**
-     * @dev only owner can transfer Unisocks's Contract ownership
+     * @dev only owner can transfer DuragFinance's Contract ownership
      * @param _newOwner new owner's address
      */
     function transferUnisocksOwnership(address _newOwner) external onlyOwner {
-        unisocks = Unisocks(nftAddress);
-        unisocks.transferOwnership(_newOwner);
+        duragFinance = DuragFinance(nftAddress);
+        duragFinance.transferOwnership(_newOwner);
     }
 
     /**
-     * @dev set unisocks contract address
-     * @param _nftaddress unisocks contract address
-     * @return nftAddress new unisocks contract address
+     * @dev set DuragFinance contract address
+     * @param _nftaddress DuragFinance contract address
+     * @return nftAddress new DuragFinance contract address
      */
     function setNFTAddress(address _nftaddress)
         external
